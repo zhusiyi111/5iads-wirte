@@ -46,25 +46,23 @@ function process5iads(data, sendResponse, sendResponse){
 	text = text.replace(/((百度一下)|(输入关键词)|(搜索关键词)|(搜索)|(搜素)|(搜索#)|(输入))(:|：|\s|#)/g,'searchBegin');
 	text = text.match(/(searchBegin)[\u4e00-\u9fa5a-zA-Z0-9“”"]+/)[0];
 	keyword = text.replace(/searchBegin/g,"");
-	// text = text.replace(/(搜索关键词：)|(搜索：)/,'domysearch');
-	// text = text.replace(/\s/g,'<br>');
-	// text = text.match(/(domysearch)(?:(?!<br>).|\n)*?(<br>)/)[0];
-	// keyword = text.replace(/domysearch/g,"").replace(/<br>/g,"");
 	}catch(e){
 
 	}
-	
-	
 
+	var searchUrl = getSearchUrl(url,keyword,website)
+	
+	
 	window.data = {
 		clickid:clickid,
 		url:url,
 		keyword:keyword,
 		realId:realId,
-		answer:answer
+		answer:answer,
+		searchUrl:searchUrl
 	}
 
-	// var searchUrl = getSearchUrl(url,keyword,website)
+	
 
 	$.ajax({
 		url:'http://localhost:3000/task/addTaskInfo',
@@ -194,17 +192,6 @@ chrome.commands.onCommand.addListener(function(cmd){
 
 
 
-chrome.runtime.onConnect.addListener(function(port) {
-  port.onMessage.addListener(function(msg) {
-  	console.log(msg);
-    if (msg.joke == "敲门")
-      port.postMessage({question: "是谁？"});
-    else if (msg.answer == "女士")
-      port.postMessage({question: "哪位女士？"});
-    else if (msg.answer == "Bovary 女士")
-      port.postMessage({question: "我没听清楚。"});
-  });
-});
 
 
 chrome.runtime.onMessage.addListener(

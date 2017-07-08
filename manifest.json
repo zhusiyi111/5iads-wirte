@@ -1,10 +1,10 @@
 {
-  "name": "hijack analyse plug",
+  "name": "5iads写数据端",
   "version": "0.0.1",
   "manifest_version": 2,
 
   // 简单描述
-  "description": "chrome plug analyse and guard the http hijack",
+  "description": "5iads写数据端",
   "icons": {
     "16": "icon.png",
     "48": "icon.png"
@@ -12,7 +12,7 @@
 
   // 浏览器小图表部分
   "browser_action": {
-    "default_title": "反劫持",
+    "default_title": "5iads写数据端",
     "default_icon": "icon.png",
     "default_popup": "pop.html"
   },

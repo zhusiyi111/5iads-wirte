@@ -102,6 +102,8 @@ function uploadInfo(){
 
 	}
 
+	var searchUrl = getSearchUrl(url,keyword,website);
+
 	var data = {
 		url:url,
 		clickId:clickId,
@@ -110,7 +112,8 @@ function uploadInfo(){
 		lastRequest:lastRequest,
 		img:img,
 		stepText:stepText,
-		keyword:keyword
+		keyword:keyword,
+		searchUrl:searchUrl
 	}
 
 	chrome.runtime.sendMessage({
@@ -120,6 +123,26 @@ function uploadInfo(){
 		sendInfoToBg(data);
 	});
 	
+}
+
+
+// 计算搜索链接
+function getSearchUrl(url,keyword,website){
+	// 如果是百度
+	if(url.indexOf('www.baidu.com')!==-1){
+		var str = 'https://www.baidu.com/s?ie=UTF-8&wd='+keyword;
+		if(website!==undefined){
+			str += (' site%3A'+website);
+		}
+		return str;
+	}else if(url.indexOf('m.baidu.com')!==-1){	//如果是手机百度
+		var str = 'https://m.baidu.com/s?word='+keyword;
+		if(website!==undefined){
+			str += ('+site%3A'+website);
+		}
+		console.log(str);
+		return str;
+	}
 }
 
 
