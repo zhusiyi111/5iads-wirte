@@ -1,0 +1,78 @@
+{
+  "name": "hijack analyse plug",
+  "version": "0.0.1",
+  "manifest_version": 2,
+
+  // 简单描述
+  "description": "chrome plug analyse and guard the http hijack",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png"
+  },
+
+  // 浏览器小图表部分
+  "browser_action": {
+    "default_title": "反劫持",
+    "default_icon": "icon.png",
+    "default_popup": "pop.html"
+  },
+  "background": { 
+    "scripts": [
+      "static/jquery-1.8.1.js",
+      "js/background.js"
+    ] 
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://www.5iads.cn/*"],
+      "js": ["static/jquery-1.8.1.js","js/publicInsert/index.js"]
+    },
+    {
+      "matches": ["https://www.baidu.com/*"],
+      "js": ["static/jquery-1.8.1.js","js/baidu/index.js"]
+    },
+    {
+      "matches": ["*://m.baidu.com/*"],
+      "js": ["static/jquery-1.8.1.js","js/mbaidu/index.js"]
+    },
+    {
+      "matches": ["http://www.5iads.cn/zhuan.asp?zhuan=click"],
+      "js": ["static/jquery-1.8.1.js","js/clickAds/index.js"]
+    }
+  ],
+  "commands":{
+    "begin":{
+      "suggested_key": {
+          "default": "Ctrl+Shift+5",
+          "windows": "Alt+Shift+Q"
+        },
+        "description": "打开pop页面",
+         "global": true 
+    } 
+  },
+  "web_accessible_resources" : [
+        "js/my5iads.js",
+        "js/*",
+        "js/*/*.js"
+  ],
+  // // 引入一个脚本
+  // "content_scripts": [
+  //   {
+  //     "js": ["script/test.js"],
+  //     // 在什么情况下使用该脚本
+  //     "matches": [
+  //       "http://*/*",
+  //       "https://*/*"
+  //     ],
+  //     // 什么情况下运行【文档加载开始】
+  //     "run_at": "document_start"
+  //   }
+  // ],
+  // 应用协议页面
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "tabs",
+    "storage"
+  ]
+}
