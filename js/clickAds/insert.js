@@ -104,7 +104,7 @@ window.loadClickList = function(pagenum){
 				/*加载点击广告列表结束*/
 				/*显示广告内容开始*/
 				$.each($('.zhuanitem'), function (index, value) {
-						$(this).on('click', '.zhuanclick', function () {console.log(this);
+						$(this).on('click', '.zhuanclick', function () {
 							CurrentA = $('.zhuanitem').eq(index)
 							
 							$.ajax({

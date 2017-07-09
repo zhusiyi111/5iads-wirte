@@ -204,6 +204,8 @@ chrome.runtime.onMessage.addListener(
 		processMBaidu(request, sender, sendResponse);
   	}
 
+  	return true;
+
   });
 
 function processBaidu(request, sender, sendResponse){
@@ -221,6 +223,8 @@ function processClickAds(request, sender, sendResponse){
 	}else if(request.J_method==='updateTaskInfo'){
 		console.log(request.data)
 		updateTaskInfo(request.data);
+	}else if(request.J_method==='getAnswer'){
+		getAnswer(request, sender, sendResponse);
 	}
 }
 
@@ -259,4 +263,30 @@ function updateTaskInfo(data){
 
 		}
 	});
+}
+
+
+// 查询答案
+function getAnswer(request, sender, sendResponse){
+	
+	var data = {
+		img:request.data.img,
+		keyword:request.data.keyword,
+		url:request.data.url
+	}
+	$.ajax({
+		url:'http://localhost:3000/task/getAnswer',
+		method:'get',
+		data:data,
+		success:function(data){
+			data = JSON.parse(data);
+			
+			if(data.length){
+				sendResponse(data[0]);
+			}
+
+			
+		}
+	});
+
 }
