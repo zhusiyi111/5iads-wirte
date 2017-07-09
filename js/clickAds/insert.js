@@ -320,9 +320,17 @@ window.loadClickList = function(pagenum){
 		}
 	})
 }
+
+
+
+
+
+
 $(function(){
 	loadClickList();
 })
+
+
 
 
 

@@ -196,7 +196,7 @@ chrome.commands.onCommand.addListener(function(cmd){
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-  	if(sender.url==='http://www.5iads.cn/zhuan.asp?zhuan=click'){
+  	if(sender.url.indexOf('www.5iads.cn/zhuan.asp?zhuan=click')!==-1){
 		processClickAds(request, sender, sendResponse);
   	}else if(/www\.baidu\.com/.test(sender.url)){
   		processBaidu(request, sender, sendResponse);

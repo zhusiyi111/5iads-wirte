@@ -11,45 +11,8 @@ s.onload = function() {
 
 
 
-// 小窗 供按键精灵识别
-var floatDiv = '<div id="floatDiv"></div>';
-$('body').append(floatDiv);
-$('#floatDiv').css({
-	width:'30px',
-	height:'30px',
-	position:'fixed',
-	top:0,
-	left:0,
-	'z-index':99999,
-	'background-color':'green'
-})
 
 
-
-// 判断是否成功
-var timer = setInterval(function(){
-
-	var isSuccess = (function(){
-		if($('#urlcheck').hasClass('success') && !$('#urlcheck').is(':hidden')){
-			return true;
-		}else{
-			return false;
-		}
-	})();
-
-	// 查看答案是否通过并更新悬浮窗颜色
-	if(isSuccess){
-		$('#floatDiv').css('background-color','green');
-	}else{
-		$('#floatDiv').css('background-color','black');
-	}
-
-
-
-
-
-
-},200);
 
 var lastImg = '';
 
@@ -102,8 +65,7 @@ function uploadInfo(){
 
 	}
 
-	var searchUrl = getSearchUrl(url,keyword,website);
-
+	
 	var data = {
 		url:url,
 		clickId:clickId,
@@ -112,14 +74,15 @@ function uploadInfo(){
 		lastRequest:lastRequest,
 		img:img,
 		stepText:stepText,
-		keyword:keyword,
-		searchUrl:searchUrl
+		keyword:keyword
 	}
 
 	chrome.runtime.sendMessage({
 		J_method:'getWebsiteAndTitle'
 	}, function(res) {
 		data = $.extend(data,res);
+		var searchUrl = getSearchUrl(data.url,data.keyword,data.website);
+		data.searchUrl = searchUrl;
 		sendInfoToBg(data);
 	});
 	
@@ -140,7 +103,6 @@ function getSearchUrl(url,keyword,website){
 		if(website!==undefined){
 			str += ('+site%3A'+website);
 		}
-		console.log(str);
 		return str;
 	}
 }
@@ -160,9 +122,9 @@ function sendInfoToBg(data){
 
 // 点过的变绿
 $(document).delegate('.zhuanclick','click',function(){
-	console.log($(this).find('.title'));
 	$(this).find('.title').css('color','green');
 })
+
 
 
 

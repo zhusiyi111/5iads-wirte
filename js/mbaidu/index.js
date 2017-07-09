@@ -1,39 +1,3 @@
-// chrome.runtime.onMessage.addListener(function(data, sender, sendResponse){
-// 	console.log(data);
-// })
-
-
-
-
-// function init(){
-
-	// sendMsgToBg('mbaidu');
-
-
-	
-// }
-
-
-
-// function sendMsgToBg(data){
-// 	var data = {}
-// 	data.sender = 'mbaidu';
-// 	chrome.runtime.sendMessage(data, function(response){
-// 		console.log(response);
-// 		var target = $('h3').filter(function(){
-// 			var _this = $(this);
-// 			if(_this.text().indexOf(response)!==-1){
-// 				return true;
-// 			}
-// 			return false;
-// 		});
-// 		console.log(target);
-// 		setTimeout(function(){
-// 			target.trigger('click');
-// 		},5000);
-		
-// 	});
-// }
 
 
 // 打开后自动聚焦
