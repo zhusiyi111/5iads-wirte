@@ -1,25 +1,25 @@
 
 
-// chrome.runtime.onMessage.addListener(function(data, sender, sendResponse){
+chrome.runtime.onMessage.addListener(function(data, sender, sendResponse){
 	
-// 	if(data.INTERFACE === 'addTitleAndWebsite'){
-// 		// addTitleAndWebsite(data,sender,sendResponse);
-// 	}
+	if(data.INTERFACE === 'addTitleAndWebsite'){
+		// addTitleAndWebsite(data,sender,sendResponse);
+	}
 
-// 	else if(data.sender==='5iads'){
-// 		window.sender = sender;
-// 		process5iads(data, sender, sendResponse);
-// 	}else if(data.sender==='baidu'){
-// 		// processbaidu(data, sender, sendResponse);
-// 	}
-// 	else if(data.sender==='mbaidu'){
-// 		processmbaidu(data, sender, sendResponse);
-// 	}
+	else if(data.sender==='5iads'){
+		window.sender = sender;
+		process5iads(data, sender, sendResponse);
+	}else if(data.sender==='baidu'){
+		// processbaidu(data, sender, sendResponse);
+	}
+	else if(data.sender==='mbaidu'){
+		processmbaidu(data, sender, sendResponse);
+	}
 	
 
 	
-//  	return true;
-// });
+ 	return true;
+});
 
 
 
@@ -198,6 +198,8 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
   	if(sender.url.indexOf('www.5iads.cn/zhuan.asp?zhuan=click')!==-1){
 		processClickAds(request, sender, sendResponse);
+  	}else if(sender.url.indexOf('//www.5iads.cn/zhuan.asp?zhuan=search')!==-1){
+		processSearchAds(request, sender, sendResponse);
   	}else if(/www\.baidu\.com/.test(sender.url)){
   		processBaidu(request, sender, sendResponse);
   	}else if(/m\.baidu\.com/.test(sender.url)){
@@ -226,6 +228,19 @@ function processClickAds(request, sender, sendResponse){
 	}else if(request.J_method==='getAnswer'){
 		getAnswer(request, sender, sendResponse);
 	}
+}
+
+function processSearchAds(request,sender,sendResponse){
+	// 获得localStroge中的搜索链接及title
+	if(request.J_method==='getWebsiteAndTitle'){
+		sendResponse(getWebsiteAndTitle());
+	// 更新任务信息
+	}else if(request.J_method==='updateTaskInfo'){
+		console.log(request.data)
+		updateTaskInfo(request.data);
+	}else if(request.J_method==='getAnswer'){
+		getAnswer(request, sender, sendResponse);
+	}	
 }
 
 function processMBaidu(request, sender, sendResponse){

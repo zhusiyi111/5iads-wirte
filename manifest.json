@@ -38,6 +38,10 @@
     {
       "matches": ["http://www.5iads.cn/zhuan.asp?zhuan=click"],
       "js": ["static/jquery-1.8.1.js","js/clickAds/index.js"]
+    },
+    {
+      "matches": ["http://www.5iads.cn/zhuan.asp?zhuan=search"],
+      "js": ["static/jquery-1.8.1.js","js/searchAds/index.js"]
     }
   ],
   "commands":{
